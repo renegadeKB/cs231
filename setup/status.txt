@@ -1,0 +1,5 @@
+Kaeden Berg
+cs231
+
+Currently I will be using Kali in a virtual machine, I installed it without any problems, and it seems to be working well. 
+

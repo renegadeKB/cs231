@@ -1,0 +1,19 @@
+1. 
+Use ifconfig -a or ip addr, then look for inet/inet6. These will be your wireless ip addresses. Your ethernet should be in the en or eth section 
+2.
+ping <hostname> will tell you, or dig <hostname>
+3.
+nslookup <IP> or dig <IP>
+4.
+scp <sourcefile> <ssh user@hostname/destination/path> will securely transfer files using ssh. You can try rsync if ssh isn't allowed, but it won't be secure.
+5.
+ netstat -tulpn | grep :<port number> will show you just those listening on a specific port.
+6.
+netstat -tulpn will show you all TCP and UDP ports that are being listened on, and give you the PID and name of the listener's process if you are a root/sudo user.
+7.
+curl -o <destination/path.txt> <domain> or wget <domain> -O </destination/path.txt>
+8.
+curl -I <domain> will show you the headers, though wget and telnet have options to do so as well.
+9.
+curl -D - -o /dev/null <domain> will do it. -D - will send the output to stdout, and -o/dev/null ignores the response.
+

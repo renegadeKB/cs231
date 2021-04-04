@@ -1,0 +1,84 @@
+﻿Ginnie White Kaeden Berg
+
+
+===== DAYTIME =====
+1. Identify the parts of the TCP 3-way handshake by listing the frame summaries of the relevant frames. 
+
+
+We copied the first three requests from the TCP handshake:
+1 10.0.2.15        132.163.96.2        TCP        74        35568 → 13 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 SACK_PERM=1 TSval=2451173026 TSecr=0 WS=128
+2 132.163.96.2        10.0.2.15        TCP        60        13 → 35568 [SYN, ACK] Seq=0 Ack=1 Win=65535 Len=0 MSS=1460
+3 10.0.2.15        132.163.96.2        TCP        54        35568 → 13 [ACK] Seq=1 Ack=1 Win=64240 Len=0
+
+
+2. What port number does the client (i.e. nc on your Kali computer) use for this interaction? And why does the client need a port?
+
+
+        In the examples above, we use port 35568. We need the port to tell the server where to send the information we request.
+
+
+3. What frame contains the actual date and time? (Show the frame summary as in question 1 above.)
+
+
+4 132.163.96.2        10.0.2.15        DAYTIME        105        DAYTIME Response
+
+
+4. What is the full content (not counting the Ethernet, IP, and TCP headers) of the frame? What do each of the pieces of the frame content represent? (Most of the frame content is things like the year, month, day, hour, etc., but there's a little more info, too.)
+
+
+Daytime: \n59308 21-04-04 20:08:12 50 0 0 948.6 UTC(NIST) * \n
+        Most of the content is the actual date and time, with some \n for formatting in the terminal output. Daytime refers to the protocol. UTC(NIST) stands for Coordinated Universal time from NIST. 59308 refers to the modified Julian day, 21-04-04 is the date, 20:08:12 is the precise time of day. 50 represents the daylight saving time flag to tell the computer how close it is to daylight savings time. The first 0 represents the leap year flag, to give the heads up of an “imminent leap second”. The next zero represents the health of the time server, 0 indicates everything is healthy. Finally, the 948.6 is the “time advanced in milliseconds”. This is the estimation for how long the packet will take to send and be received, so they added that estimation to the current time they sent, so the time is reasonably accurate. According to the document we read, it is fixed but may become dynamic in the future. FInally the * is just for ACTS formatting.
+ 
+5. What does [SYN] mean?
+
+
+Synchronized request, a request to open a new connection.
+
+
+6. What does [ACK] mean?
+
+
+        Acknowledgement that a message was received.
+
+
+7. What does [FIN] mean?
+
+
+        Finished, we’re done interacting with the server
+
+
+8. Which entity (the nc client or the daytime server) initiated the closing of the TCP connection? How can you tell?
+        The client sent the FIN message ([FIN, ACK]), so we initiated the closing. 
+
+
+
+
+===== HTTP =====
+
+
+1. How many TCP connections were opened?
+         
+        We had 2 TCP connections opened
+
+
+2. Can you tell where my homepage (index.html) was requested? (If not, why not? If so, include frame summaries and/or other info that supports your answer.)
+
+
+5       10.0.2.15        45.79.89.123        HTTP        395        GET /index.html HTTP/1.1 
+
+
+We can see that in the information, this frame has the GET request for the index page.
+
+
+3. Can you tell where my photograph (jeff_square_head.jpg) was requested? (If not, why not? If so, include frame summaries and/or other info that supports your answer.)
+
+
+11        10.0.2.15        45.79.89.123        HTTP        364        GET /jeff_square_head.jpg HTTP/1.1 
+
+
+We can see the GET request for the picture in this frame
+
+
+===== QUESTIONS =====
+1. Does wireshark port capture go both ways? When I asked it to capture port 13, it captured outgoing messages to port 13. Would it capture messages coming into port 13 as well?
+2. When is the ability to see the exact bytes for each frame useful?

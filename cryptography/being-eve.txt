@@ -1,0 +1,33 @@
+Being Eve
+Kaeden Berg (or Eve, for this assignment)
+
+NOTE: Python programs are in basicCyphers.py
+===Diffie Helman===
+What we know:
+Alice and Bob agree on g = 17 and p = 61.
+
+Alice sent Bob the number 46.
+
+Bob sent Alice the number 5.
+
+17^x mod 61 = 46
+17^y mod 61 = 5
+5^x mod 61 = 46^y mod 61
+
+We know that x < 61 and y < 61
+So we have to reverse engineer numbers that fit all three equations, instead of doing that by hand, I wrote a quick python function 
+findDiffieKey() to find that x = 14, and y = 26. 
+This function would fail if the integers were much larger, because it may take forever. This function is hard computationally as I
+have to check every valid x against every valid y, which will take exponential time. Generating the list of possiblities is linear 
+time however, it's only checking the combinations which will be time consuming.
+======RSA=======
+From the RSA readings we did, I knew n_bob = p*q, and e_bob must be smaller than p and q, so I used (e_bob,n_bob) as my search space. 
+I tested out every number in this range using a python script, and found that p = 1487 and q = 3. Next, I had to find d. I once again
+wrote a python script to do so, this time, I encrypt and decrypt a message trying out different candidates, until one encrypts and
+decrypts properly. This told me that d=73. From there I decrypted the message character by character, and combined them into the message:
+Dear Bob, Check this out.  https://www.schneier.com/blog/archives/2017/12/e-mail_tracking_1.html Yikes! Your friend, Alice
+
+This process also would fail with much larger integers. With a sufficientally large enough n, the seach space is huge, and we have to check 
+every number in that space to make sure it is prime, and make sure its possible pair is also prime. Even if both are prime, it may be possible
+there are other valid prime pairs we also have to try. This search/check combo is also exponential, and increasing the size of the keys will
+make it impossible for my computer to run it in a realistic time frame.

@@ -22,7 +22,7 @@ have to check every valid x against every valid y, which will take exponential t
 time however, it's only checking the combinations which will be time consuming.
 ======RSA=======
 From the RSA readings we did, I knew n_bob = p*q, and e_bob must be smaller than p and q, so I used (e_bob,n_bob) as my search space. 
-I tested out every number in this range using a python script, and found that p = 1487 and q = 3. Next, I had to find d. I once again
+I tested out every number in this range using a python script, and found that p = 59 and q = 79. Next, I had to find d. I once again
 wrote a python script to do so, this time, I encrypt and decrypt a message trying out different candidates, until one encrypts and
 decrypts properly. This told me that d=73. From there I decrypted the message character by character, and combined them into the message:
 Dear Bob, Check this out.  https://www.schneier.com/blog/archives/2017/12/e-mail_tracking_1.html Yikes! Your friend, Alice

@@ -1,0 +1,42 @@
+Kaeden Berg and Kitty Tyree
+
+This data is for single word passwords only.
+In the time that it would take for us to crack
+the two word passwords, it would be past the deadline.
+(we roughly estimated around 38 hours for unsalted double word passwords)
+We did code up methods to find the double passwords, and they worked with our test cases,
+but the salted passwords were taking a ridiculous amount of time.
+The first double password for the unsalted is quaylep:abbotshipfragilest 
+
+
+Part 1
+Passwords cracked: 1162 passwords
+Total time: 0m2.583s
+Number of hashes computed: 267751 hashes
+Passwords cracked per number of hashes computed: 0.0043 passwords per hash
+Time per password cracked: 0.00222289156 seconds per password
+
+Part 2
+Passwords cracked: 1133 passwords
+Total time: 8m21.845s
+Number of hashes computed: 466192417
+Passwords cracked per number of hashes computed: 0.00000243032 passwords per hash
+Time per password cracked: 2.25766920065 seconds
+
+
+Factor by which your time per password lengthened, and why.
+2.25544630909 more seconds per password, which is ~1015.64 times as long per password.
+The time per password increased by so much because in 
+our method for cracking the salted passwords, we had to take a
+salt and concatenated that with a word in the words.txt file,
+starting with "aa". Then, we computed the hash for that combination 
+and if it was not the hash in the password, we moved on in the 
+dictionary. So, in the case that the password was 2 words, there
+was a computation performed for each word in the dictionary AKA
+267751 hashes with no result but still eating up time. Our part 1 was 
+able to store the hashed words and sort them, so we could easily find 
+the matching passwords, and ignore the double word passwords with ease. 
+We couldn't store the salted hashes because they are unique to each 
+password, so storing and sorting would slow down the process, as we 
+would have to hash the full dictionary and sort for each password before checking.
+
